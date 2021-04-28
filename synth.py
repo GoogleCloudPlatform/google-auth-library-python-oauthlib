@@ -7,7 +7,7 @@ common = gcp.CommonTemplates()
 # Add templated files
 # ----------------------------------------------------------------------------
 templated_files = common.py_library(
-    cov_level=99,
+    cov_level=96,
     unit_test_external_dependencies=["click"],
     unit_test_python_versions=["3.6", "3.7", "3.8", "3.9"],
 )
@@ -18,4 +18,11 @@ s.replace(
     "noxfile.py",
     """BLACK_PATHS =.*""",
     """BLACK_PATHS = ["docs", "google_auth_oauthlib", "tests", "noxfile.py", "setup.py"]""",
+)
+
+# Change coverage path
+s.replace(
+    "noxfile.py",
+    '''["']--cov=google/cloud["'],''',
+    '''"--cov=google_auth_oauthlib",''',
 )
